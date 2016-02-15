@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="time.css">
+	</head>
+
+	<body id="body">
+		<ul>
+			<li><a onclick="Zone = -8, City = 'San Francisco'">San Francisco time</a></li>
+			<li><a onclick="Zone = -6, City = 'Dallas'">Dallas time</a></li>
+			<li><a onclick="Zone = -5, City = 'New York'">New York time</a></li>
+			<li><a onclick="Zone = 0, City = 'London'">London time</a></li>
+			<li><a onclick="Zone = +1, City = 'Amsterdam'">Amsterdam time</a></li>
+			<li><a onclick="Zone = +2, City = 'Istanbul'">Istanbul time</a></li>
+			<li><a onclick="Zone = +3, City = 'Moscow'">Moscow time</a></li>
+			<li><a onclick="Zone = +8, City = 'Beijing'">Beijing time</a></li>
+			<li><a onclick="Zone = +9, City = 'Tokyo'">Tokyo time</a></li>
+			<li><a onclick="Zone = +11, City = 'Sidney'">Sidney time</a></li>
+		</ul>
+
+		<div id="color">
+			<p id="good"></p>
+			<p id="time"></p>
+		</div>
+
+
+		<script>
+		var Zone = +1, City = "Amsterdam"
+		var Timer = setInterval(NewTime, 100);
+
+		function NewTime() {
+			var Time = new Date(), Offset = Time.getTimezoneOffset(), Hours = Time.getHours(), Minutes = Time.getMinutes(), Seconds = Time.getSeconds();
+			Offset = Offset / 60;
+			Hours = Hours + Offset
+			if (Minutes < 10) {
+				Minutes = "0" + Minutes;
+			}
+			if (Seconds < 10) {
+				Seconds = "0" + Seconds;
+			}
+
+			Hours = Hours + Zone
+
+			if (Hours < 0) {
+				Hours = Hours + 24;
+			} else if (Hours > 23) {
+				Hours = Hours - 24;
+			}
+
+			if (Hours > 5 && Hours < 12) {
+				Good = "morning!";
+				document.getElementById("body").style.backgroundImage = "url('Backgrounds/morning.png')"
+				color = "black"
+			} else if (Hours > 11 && Hours < 18) {
+				Good = "afternoon!";
+				document.getElementById("body").style.backgroundImage = "url('Backgrounds/afternoon.png')";
+				color = "black"
+			} else if (Hours > 17 && Hours < 23) {
+				Good = "evening!";
+				document.getElementById("body").style.backgroundImage = "url('Backgrounds/evening.png')";
+				color = "black"
+			} else {
+				Good = "night!";
+				document.getElementById("body").style.backgroundImage = "url('Backgrounds/night.png')";
+				color = "white"
+			}		
+
+			document.getElementById("color").style.color = color;
+			document.getElementById("good").innerHTML = "Good " + Good;
+			document.getElementById("time").innerHTML = "In " + City + ", the time is: <br><span>" + Hours + ":" + Minutes + ":" + Seconds + "</span>";
+
+		}
+		</script>
+	</body>
+</html>
